@@ -39,6 +39,9 @@ export default class UIScene extends Phaser.Scene {
 
         events.on('gameStateChanged', this.updateUI, this);
         this.updateUI();
+
+        // Add resize listener to reposition UI elements
+        this.scale.on('resize', this.resizeUI, this);
     }
 
     updateUI() {
@@ -49,16 +52,21 @@ export default class UIScene extends Phaser.Scene {
     }
 
     createManagerButton() {
-        const managerButton = this.add.text(this.scale.width - 20, 20, '💼 Managers', {
-            fontSize: '24px', fill: '#FFF', backgroundColor: '#00000080', padding: { x: 10, y: 5 }
+        this.managerButton = this.add.text(this.scale.width - 20, 20, '💼', {
+            fontSize: '32px'
         }).setOrigin(1, 0).setInteractive({ useHandCursor: true });
 
-        managerButton.on('pointerdown', () => {
+        this.managerButton.on('pointerdown', () => {
             this.managerPanel.setVisible(!this.managerPanel.visible);
             if (this.managerPanel.visible) {
                 this.updateManagerPanel();
             }
         });
+    }
+
+    resizeUI() {
+        this.balanceText.setPosition(20, 20);
+        this.managerButton.setPosition(this.scale.width - 20, 20);
     }
 
     createManagerPanel() {
