@@ -5,12 +5,9 @@ export default class PreloaderScene extends Phaser.Scene {
         super('PreloaderScene');
     }
 
-    preload() {
-        console.log('PreloaderScene: preload');
-    }
+    preload() {}
 
     create() {
-        console.log('PreloaderScene: create');
         this.scene.start('GameScene');
         this.scene.launch('UIScene');
     }
